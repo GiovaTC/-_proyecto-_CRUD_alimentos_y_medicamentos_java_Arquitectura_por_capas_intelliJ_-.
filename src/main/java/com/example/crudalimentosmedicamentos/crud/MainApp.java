@@ -11,5 +11,6 @@ public class MainApp {
     }
 
     private static void launch(Class<DbUtil> dbUtilClass, String[] args) {
+
     }
 }

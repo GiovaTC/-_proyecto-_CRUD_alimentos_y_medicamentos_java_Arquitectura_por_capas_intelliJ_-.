@@ -1,17 +1,17 @@
 package com.example.crudalimentosmedicamentos.crud.service;
 
-import com.example.crudalimentosmedicamentos.crud.dao.MedicamentoDAO;
-import com.example.crudalimentosmedicamentos.crud.dao.MedicamentoDAOImpl;
-import com.example.crudalimentosmedicamentos.crud.model.Medicamento;
+import com.example.crudalimentosmedicamentos.crud.dao.AlimentoDAO;
+import com.example.crudalimentosmedicamentos.crud.dao.AlimentoDAOImpl;
+import com.example.crudalimentosmedicamentos.crud.model.Alimento;
 
 import java.util.List;
 
 public class AlimentoService {
-    private final MedicamentoDAO dao = new MedicamentoDAOImpl();
+    private final AlimentoDAO dao = new AlimentoDAOImpl();
 
-    public List<Medicamento> listar() throws Exception{ return dao.findAll();}
-    public Medicamento obtener(Long id) throws Exception{ return dao.findById(id);}
-    public void crear(Medicamento m) throws  Exception { dao.insert(m); }
-    public void actualizar(Medicamento m) throws Exception{ dao.update(m); }
-    public void eliminar(Long id) throws Exception{ dao.delete(id);}
+    public List<Alimento> listar() throws Exception { return dao.findAll(); }
+    public Alimento obtener(Long id) throws Exception { return dao.findById(id); }
+    public void crear(Alimento a) throws Exception { dao.insert(a); }
+    public void actualizar(Alimento a) throws Exception { dao.update(a); }
+    public void eliminar(Long id) throws Exception { dao.delete(id); }
 }

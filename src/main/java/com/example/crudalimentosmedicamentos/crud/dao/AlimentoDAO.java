@@ -1,4 +1,5 @@
 package com.example.crudalimentosmedicamentos.crud.dao;
 
-public class AlimentoDAO {
-}
+import com.example.crudalimentosmedicamentos.crud.model.Alimento;
+
+public interface AlimentoDAO extends GenericDAO<Alimento> { }

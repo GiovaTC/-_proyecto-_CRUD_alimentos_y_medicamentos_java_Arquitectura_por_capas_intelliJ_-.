@@ -1,16 +1,23 @@
 package com.example.crudalimentosmedicamentos.crud;
 
-import com.example.crudalimentosmedicamentos.crud.util.DbUtil;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
-import static javafx.application.Application.*;
-
-public class MainApp {
-    public static void main(String[] args) {
-        launch(DbUtil.class, args);
+public class MainApp extends Application {
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/com/example/crudalimentosmedicamentos/crud/ui/views/main.fxml"));
+        Scene scene = new Scene(fxml.load(), 900, 600);
+        stage.setTitle("Gestión Alimentos y Medicamentos");
+        // stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private static void launch(Class<DbUtil> dbUtilClass, String[] args) {
-
+    public static void main(String[] args) {
+        launch();
     }
 }

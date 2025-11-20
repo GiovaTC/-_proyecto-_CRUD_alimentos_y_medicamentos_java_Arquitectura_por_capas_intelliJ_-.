@@ -11,19 +11,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-import java.time.LocalDate;
-
 public class MainController {
+
     @FXML private TabPane tabPane;
 
     // Alimentos
     @FXML private TableView<Alimento> tableAlimentos;
     @FXML private TableColumn<Alimento, Long> colAlId;
     @FXML private TableColumn<Alimento, String> colAlNombre;
-    @FXML private TextField tfAlNombre;
-    @FXML private TextField tfAlCategoria;
+    @FXML private TextField tfAlNombre, tfAlCategoria, tfAlStock;
     @FXML private DatePicker dpAlVenc;
-    @FXML private TextField tfAlStock;
     @FXML private TextArea taAlObs;
     @FXML private Button btnAlGuardar, btnAlNuevo, btnAlEliminar;
 
@@ -31,11 +28,8 @@ public class MainController {
     @FXML private TableView<Medicamento> tableMedicamentos;
     @FXML private TableColumn<Medicamento, Long> colMedId;
     @FXML private TableColumn<Medicamento, String> colMedNombre;
-    @FXML private TextField tfMedNombre;
-    @FXML private TextField tfMedPrincipio;
-    @FXML private TextField tfMedDosis;
+    @FXML private TextField tfMedNombre, tfMedPrincipio, tfMedDosis, tfMedStock;
     @FXML private DatePicker dpMedVenc;
-    @FXML private TextField tfMedStock;
     @FXML private TextArea taMedObs;
     @FXML private Button btnMedGuardar, btnMedNuevo, btnMedEliminar;
 
@@ -47,7 +41,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        // configurar tablas
+        // Configurar tablas
         colAlId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colAlNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colMedId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -67,6 +61,7 @@ public class MainController {
         });
     }
 
+    // 📌 Cargar listas
     private void loadAlimentos() {
         try {
             alimentos.setAll(alimentoService.listar());
@@ -85,11 +80,12 @@ public class MainController {
         }
     }
 
+    // 📌 Llenar campos
     private void populateAlimento(Alimento a) {
         tfAlNombre.setText(a.getNombre());
         tfAlCategoria.setText(a.getCategoria());
         dpAlVenc.setValue(a.getFechaVencimiento());
-        tfAlStock.setText(a.getStock() == null ? "" : a.getStock().toString());
+        tfAlStock.setText(a.getStock() != null ? a.getStock().toString() : "");
         taAlObs.setText(a.getObservaciones());
         btnAlGuardar.setUserData(a);
     }
@@ -99,74 +95,133 @@ public class MainController {
         tfMedPrincipio.setText(m.getPrincipioActivo());
         tfMedDosis.setText(m.getDosis());
         dpMedVenc.setValue(m.getFechaVencimiento());
-        tfMedStock.setText(m.getStock() == null ? "" : m.getStock().toString());
+        tfMedStock.setText(m.getStock() != null ? m.getStock().toString() : "");
         taMedObs.setText(m.getObservaciones());
         btnMedGuardar.setUserData(m);
     }
 
+    // 📌 Funciones Alimentos
     @FXML
     private void onAlNuevo() {
-        tfAlNombre.clear(); tfAlCategoria.clear(); dpAlVenc.setValue(null); tfAlStock.clear(); taAlObs.clear();
+        tfAlNombre.clear();
+        tfAlCategoria.clear();
+        dpAlVenc.setValue(null);
+        tfAlStock.clear();
+        taAlObs.clear();
         btnAlGuardar.setUserData(null);
     }
 
     @FXML
     private void onAlGuardar() {
         try {
+            if (tfAlNombre.getText().isEmpty()) {
+                showAlert("El nombre del alimento es obligatorio.");
+                return;
+            }
+
             Alimento a = (Alimento) btnAlGuardar.getUserData();
             if (a == null) a = new Alimento();
+
             a.setNombre(tfAlNombre.getText());
             a.setCategoria(tfAlCategoria.getText());
             a.setFechaVencimiento(dpAlVenc.getValue());
             a.setStock(tfAlStock.getText().isEmpty() ? null : Integer.parseInt(tfAlStock.getText()));
             a.setObservaciones(taAlObs.getText());
-            if (a.getId() == null) alimentoService.crear(a); else alimentoService.actualizar(a);
+
+            if (a.getId() == null) alimentoService.crear(a);
+            else alimentoService.actualizar(a);
+
             loadAlimentos();
             onAlNuevo();
-        } catch (Exception ex) { showError(ex); }
+        } catch (Exception ex) {
+            showError(ex);
+        }
     }
 
     @FXML
     private void onAlEliminar() {
         Alimento sel = tableAlimentos.getSelectionModel().getSelectedItem();
-        if (sel == null) return;
-        try { alimentoService.eliminar(sel.getId()); loadAlimentos(); } catch (Exception ex) { showError(ex); }
+        if (sel == null) {
+            showAlert("Seleccione un alimento para eliminar.");
+            return;
+        }
+        try {
+            alimentoService.eliminar(sel.getId());
+            loadAlimentos();
+            onAlNuevo();
+        } catch (Exception ex) {
+            showError(ex);
+        }
     }
 
+    // 📌 Funciones Medicamentos
     @FXML
     private void onMedNuevo() {
-        tfMedNombre.clear(); tfMedPrincipio.clear(); tfMedDosis.clear(); dpMedVenc.setValue(null); tfMedStock.clear(); taMedObs.clear();
+        tfMedNombre.clear();
+        tfMedPrincipio.clear();
+        tfMedDosis.clear();
+        dpMedVenc.setValue(null);
+        tfMedStock.clear();
+        taMedObs.clear();
         btnMedGuardar.setUserData(null);
     }
 
     @FXML
     private void onMedGuardar() {
         try {
+            if (tfMedNombre.getText().isEmpty()) {
+                showAlert("El nombre del medicamento es obligatorio.");
+                return;
+            }
+
             Medicamento m = (Medicamento) btnMedGuardar.getUserData();
             if (m == null) m = new Medicamento();
+
             m.setNombre(tfMedNombre.getText());
             m.setPrincipioActivo(tfMedPrincipio.getText());
             m.setDosis(tfMedDosis.getText());
             m.setFechaVencimiento(dpMedVenc.getValue());
             m.setStock(tfMedStock.getText().isEmpty() ? null : Integer.parseInt(tfMedStock.getText()));
             m.setObservaciones(taMedObs.getText());
-            if (m.getId() == null) medicamentoService.crear(m); else medicamentoService.actualizar(m);
+
+            if (m.getId() == null) medicamentoService.crear(m);
+            else medicamentoService.actualizar(m);
+
             loadMedicamentos();
             onMedNuevo();
-        } catch (Exception ex) { showError(ex); }
+        } catch (Exception ex) {
+            showError(ex);
+        }
     }
 
     @FXML
     private void onMedEliminar() {
         Medicamento sel = tableMedicamentos.getSelectionModel().getSelectedItem();
-        if (sel == null) return;
-        try { medicamentoService.eliminar(sel.getId()); loadMedicamentos(); } catch (Exception ex) { showError(ex); }
+        if (sel == null) {
+            showAlert("Seleccione un medicamento para eliminar.");
+            return;
+        }
+        try {
+            medicamentoService.eliminar(sel.getId());
+            loadMedicamentos();
+            onMedNuevo();
+        } catch (Exception ex) {
+            showError(ex);
+        }
     }
 
+    // 📌 Alertas
     private void showError(Exception ex) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setHeaderText("Error");
         a.setContentText(ex.getMessage());
+        a.showAndWait();
+    }
+
+    private void showAlert(String msg) {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText("Atención");
+        a.setContentText(msg);
         a.showAndWait();
     }
 }

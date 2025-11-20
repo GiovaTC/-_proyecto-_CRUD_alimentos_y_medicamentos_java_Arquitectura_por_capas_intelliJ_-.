@@ -1,78 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.crudalimentosmedicamentos.crud.ui.controllers.MainController">
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.crudalimentosmedicamentos.crud.ui.controllers.MainController">
+
     <center>
         <TabPane fx:id="tabPane">
             <tabs>
+
+                <!-- TAB ALIMENTOS -->
                 <Tab text="Alimentos">
                     <content>
-                        <VBox spacing="8" padding="10">
+                        <VBox spacing="8">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+
                             <TableView fx:id="tableAlimentos" prefHeight="200">
                                 <columns>
-                                    <TableColumn fx:id="colAlId" text="ID" />
-                                    <TableColumn fx:id="colAlNombre" text="Nombre" />
+                                    <TableColumn fx:id="colAlId" text="ID"/>
+                                    <TableColumn fx:id="colAlNombre" text="Nombre"/>
                                 </columns>
                             </TableView>
+
                             <GridPane hgap="8" vgap="8">
                                 <columnConstraints>
                                     <ColumnConstraints percentWidth="25"/>
                                     <ColumnConstraints percentWidth="75"/>
                                 </columnConstraints>
-                                <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                                <TextField fx:id="tfAlNombre" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-                                <Label text="Categoria:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                                <TextField fx:id="tfAlCategoria" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-                                <Label text="Vencimiento:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-                                <DatePicker fx:id="dpAlVenc" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-                                <Label text="Stock:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-                                <TextField fx:id="tfAlStock" GridPane.rowIndex="3" GridPane.columnIndex="1" />
-                                <Label text="Observaciones:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
-                                <TextArea fx:id="taAlObs" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+                                <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tfAlNombre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Categoría:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tfAlCategoria" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Vencimiento:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <DatePicker fx:id="dpAlVenc" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                <Label text="Stock:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tfAlStock" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                                <Label text="Observaciones:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                <TextArea fx:id="taAlObs" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
                             </GridPane>
+
                             <HBox spacing="8">
-                                <Button text="Nuevo" fx:id="btnAlNuevo" onAction="#onAlNuevo" />
-                                <Button text="Guardar" fx:id="btnAlGuardar" onAction="#onAlGuardar" />
-                                <Button text="Eliminar" fx:id="btnAlEliminar" onAction="#onAlEliminar" />
+                                <Button text="Nuevo" fx:id="btnAlNuevo" onAction="#onAlNuevo"/>
+                                <Button text="Guardar" fx:id="btnAlGuardar" onAction="#onAlGuardar"/>
+                                <Button text="Eliminar" fx:id="btnAlEliminar" onAction="#onAlEliminar"/>
                             </HBox>
                         </VBox>
                     </content>
                 </Tab>
+
+                <!-- TAB MEDICAMENTOS -->
                 <Tab text="Medicamentos">
                     <content>
-                        <VBox spacing="8" padding="10">
+                        <VBox spacing="8">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+
                             <TableView fx:id="tableMedicamentos" prefHeight="200">
                                 <columns>
-                                    <TableColumn fx:id="colMedId" text="ID" />
-                                    <TableColumn fx:id="colMedNombre" text="Nombre" />
+                                    <TableColumn fx:id="colMedId" text="ID"/>
+                                    <TableColumn fx:id="colMedNombre" text="Nombre"/>
                                 </columns>
                             </TableView>
+
                             <GridPane hgap="8" vgap="8">
                                 <columnConstraints>
                                     <ColumnConstraints percentWidth="25"/>
                                     <ColumnConstraints percentWidth="75"/>
                                 </columnConstraints>
-                                <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                                <TextField fx:id="tfMedNombre" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-                                <Label text="Principio activo:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                                <TextField fx:id="tfMedPrincipio" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-                                <Label text="Dosis:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-                                <TextField fx:id="tfMedDosis" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-                                <Label text="Vencimiento:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-                                <DatePicker fx:id="dpMedVenc" GridPane.rowIndex="3" GridPane.columnIndex="1" />
-                                <Label text="Stock:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
-                                <TextField fx:id="tfMedStock" GridPane.rowIndex="4" GridPane.columnIndex="1" />
-                                <Label text="Observaciones:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
-                                <TextArea fx:id="taMedObs" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+                                <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tfMedNombre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                <Label text="Principio activo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tfMedPrincipio" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                <Label text="Dosis:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tfMedDosis" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                <Label text="Vencimiento:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                <DatePicker fx:id="dpMedVenc" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                                <Label text="Stock:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tfMedStock" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                                <Label text="Observaciones:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                                <TextArea fx:id="taMedObs" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
                             </GridPane>
+
                             <HBox spacing="8">
-                                <Button text="Nuevo" fx:id="btnMedNuevo" onAction="#onMedNuevo" />
-                                <Button text="Guardar" fx:id="btnMedGuardar" onAction="#onMedGuardar" />
-                                <Button text="Eliminar" fx:id="btnMedEliminar" onAction="#onMedEliminar" />
+                                <Button text="Nuevo" fx:id="btnMedNuevo" onAction="#onMedNuevo"/>
+                                <Button text="Guardar" fx:id="btnMedGuardar" onAction="#onMedGuardar"/>
+                                <Button text="Eliminar" fx:id="btnMedEliminar" onAction="#onMedEliminar"/>
                             </HBox>
                         </VBox>
                     </content>
                 </Tab>
+
             </tabs>
         </TabPane>
     </center>
